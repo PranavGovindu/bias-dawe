@@ -1,0 +1,75 @@
+dawe-controls
+Copyright 2026 The dawe-controls authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It includes software adapted from DAWE (https://github.com/bandr-ai/dawe, commit
+8f11c96a12d63a7e14bd036959ebb7920f1487ba), licensed under the Apache License, Version 2.0.
+DAWE's NOTICE file reads:
+
+  DAWE
+  Copyright 2026 The DAWE authors
+
+  This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+  It is designed to be used with, and its experiment depends on, third-party models and data
+  that are NOT covered by this license grant and are not included in this repository:
+
+    - Qwen/Qwen3.5-4B (Apache-2.0, https://huggingface.co/Qwen/Qwen3.5-4B)
+    - Berkeley Function Calling Leaderboard dataset v3
+      (Apache-2.0, https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard)
+
+  Some files under sessions/ quote short excerpts of BFCL items (questions, function schemas) and of
+  model outputs on them, as inputs and outputs of the experiment. Those excerpts remain subject to the
+  BFCL license. See docs/LICENSES.md for the full list of dependencies, assets and terms.
+
+Files adapted from DAWE, with modifications:
+
+  code/formatter_exps_gp.py
+    From gpu/app.py (train, generate, weight_map, the version pins and the price table) and
+    gpu/lab.py (decision_map, as plan_map and points_for). Changes: a `seed` argument for SFT
+    (DAWE hard-codes 0); an `enforce_eager` argument for generation, with predictions also written
+    to the volume; weight_map can skip the backward pass (grads=False; the saved states are the
+    same); plan_map reads prebuilt plan-first SFT rows instead of rendering BFCL in the container;
+    optional install of DAWE's recorded package freezes (FEP_IMAGE=freeze); tighter timeouts;
+    telemetry off; app and volume names configurable by environment variable; new functions and
+    entry points for the replication (merge_adapter, gen_arms, stage1, stage2, stage2_s1,
+    s3_merge_planmap, stage3, step2).
+
+  code/prevent.py
+    From gpu/app.py (train, generate). Changes: optional trainable decision-token rows (PEFT
+    trainable_token_indices, rows in fp32, a second optimizer group), untied output/input splits,
+    assertions, and the same environment-variable names as above.
+
+  code/arms.py
+    New code (the arm runner: in-place row patches and swaps, read-back checks, constant-bias and
+    two-pass first-token decoding). Its vLLM engine and sampling settings are taken from
+    gpu/app.py::generate.
+
+  code/req_train.txt, code/req_vllm.txt
+    Copies of DAWE's recorded package freezes (repro/freeze_*.txt).
+
+  code/fit_xml_patch.py, code/fit_planfirst_patch.py
+    Re-implement the ridge fits of DAWE's sessions/s1/edits/eos12.py and
+    sessions/s2/edits/plan8_eos12.py on my own checkpoints' hidden states (on CPU in fp32; DAWE's
+    ran on CUDA), plus same-norm random controls and the transplant of DAWE's released deltas.
+
+  code/scoring/score_items.py
+    A per-item wrapper around DAWE's own scorer (dawe.bfcl, dawe.harness). It imports DAWE and
+    must run inside a DAWE checkout.
+
+  code/their_patch_deltas.py
+    Reads DAWE's released patches (release/patches/*.gpatch) with dawe.patch.load_patch.
+
+Other third-party material:
+
+  data/
+    Prompts and gold replies built with DAWE's `dawe build-sft`, `build-eval` and `build-pairs`
+    from the Berkeley Function Calling Leaderboard v3 (Apache-2.0,
+    https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard). The
+    questions and function schemas remain subject to the BFCL license.
+
+  results/
+    Per-item outputs of Qwen/Qwen3.5-4B fine-tunes (Apache-2.0) on BFCL items, scored with DAWE's
+    scorer. results/deltas/*.pt contain DAWE's released patch deltas (from
+    release/patches/s1_eos12.gpatch and s2_plan8_eos12.gpatch) alongside my own fits.

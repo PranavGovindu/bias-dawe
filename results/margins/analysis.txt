@@ -1,0 +1,228 @@
+==================================================================================================== 
+1. Margin histograms (train items, teacher-forced; primary margin, logits)
+
+kind | seed | <-12 | -12..-8 | -8..-4 | -4..-2 | -2..0 | 0..2 | 2..4 | 4..8 | 8..12 | >12 | median | q10 / q90 | %neg | %|m|<4
+v11_plan/plan_start [target '<' - best rival] | s0 | 0 | 1 | 31 | 79 | 176 | 162 | 96 | 45 | 5 | 0 | +0.12 | -2.93 / +3.82 | 48.2 | 86.2
+v11_plan/plan_start [target '<' - best rival] | s1 | 21 | 111 | 250 | 95 | 66 | 36 | 12 | 4 | 0 | 0 | -5.29 | -9.63 / -0.28 | 91.3 | 35.1
+v11_plan/after_plan [best non-eos - eos] | s0 | 0 | 0 | 0 | 14 | 537 | 44 | 0 | 0 | 0 | 0 | -0.67 | -1.51 / -0.07 | 92.6 | 100.0
+v11_plan/after_plan [best non-eos - eos] | s1 | 0 | 0 | 1 | 168 | 414 | 12 | 0 | 0 | 0 | 0 | -1.51 | -2.67 / -0.66 | 98.0 | 99.8
+v4_format/continue [best non-eos - eos] | s0 | 0 | 0 | 9 | 16 | 61 | 62 | 12 | 30 | 69 | 1 | +1.15 | -1.92 / +9.60 | 33.1 | 58.1
+v4_format/continue [best non-eos - eos] | s1 | 0 | 3 | 22 | 50 | 43 | 33 | 9 | 38 | 61 | 1 | +0.68 | -3.93 / +8.98 | 45.4 | 51.9
+v4_format/stop [eos - best non-eos] | s0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 10 | 79 | 505 | +15.16 | +11.28 / +16.30 | 0.0 | 0.2
+v4_format/stop [eos - best non-eos] | s1 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 5 | 61 | 527 | +15.24 | +11.79 / +16.31 | 0.0 | 0.3
+v1/continue [gold - best rival] | s0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 16 | 161 | 81 | +11.65 | +8.87 / +12.82 | 0.0 | 0.8
+v1/continue [gold - best rival] | s1 | 0 | 0 | 0 | 0 | 0 | 1 | 3 | 12 | 140 | 104 | +11.75 | +9.35 / +13.20 | 0.0 | 1.5
+v1/stop [gold - best rival] | s0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 173 | 422 | +12.53 | +11.16 / +13.79 | 0.0 | 0.0
+v1/stop [gold - best rival] | s1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 354 | 238 | +11.79 | +10.26 / +12.92 | 0.0 | 0.0
+
+Second column: gold-minus-best-rival at after_plan / v4 continue (gold = '\n'), and m_eot at v1 points
+  v11_plan/after_plan s0 [gold '\n' - best rival]: median -1.66, q10 -2.53, %neg 100.0
+  v11_plan/after_plan s1 [gold '\n' - best rival]: median -2.77, q10 -4.17, %neg 100.0
+  v4_format/continue s0 [gold '\n' - best rival]: median +1.15, q10 -1.92, %neg 33.1
+  v4_format/continue s1 [gold '\n' - best rival]: median +0.68, q10 -3.93, %neg 45.4
+  v1/continue s0 [eos margin (continue: non-eos - eos; stop: eos - non-eos)]: median +22.12, q10 +18.42, %neg 0.0
+  v1/continue s1 [eos margin (continue: non-eos - eos; stop: eos - non-eos)]: median +20.47, q10 +16.75, %neg 0.0
+  v1/stop s0 [eos margin (continue: non-eos - eos; stop: eos - non-eos)]: median -12.56, q10 -13.79, %neg 100.0
+  v1/stop s1 [eos margin (continue: non-eos - eos; stop: eos - non-eos)]: median -12.22, q10 -13.38, %neg 100.0
+
+Top rival identity
+  v11_plan/plan_start s0: rival of gold (all) [('\'{"\'', 595)]; when m<0 [('\'{"\'', 287)]
+  v11_plan/plan_start s1: rival of gold (all) [('\'{"\'', 595)]; when m<0 [('\'{"\'', 543)]
+  v11_plan/after_plan s0: best non-eos [("'\\n\\n'", 582), ("'\\n'", 13)]; rival of gold when gold loses [('eos', 551), ("'\\n\\n'", 44)]
+  v11_plan/after_plan s1: best non-eos [("'\\n\\n'", 514), ("'\\n'", 76), (5046, 5)]; rival of gold when gold loses [('eos', 583), ("'\\n\\n'", 12)]
+  v4_format/continue s0: best non-eos [("'\\n'", 260)]; rival of gold when gold loses [('eos', 86)]
+  v4_format/continue s1: best non-eos [("'\\n'", 260)]; rival of gold when gold loses [('eos', 118)]
+  v4_format/stop s0: best non-eos [("'\\n\\n'", 418), ("'\\n'", 177)]; rival of gold when gold loses []
+  v4_format/stop s1: best non-eos [("'\\n\\n'", 423), ("'\\n'", 172)]; rival of gold when gold loses []
+  v1/continue s0: rival of gold (all) [(3307, 118), (2390, 97), (1089, 16), (37556, 12)]; when m<0 []
+  v1/continue s1: rival of gold (all) [(3307, 111), (2390, 82), (63893, 34), (37556, 16)]; when m<0 []
+  v1/stop s0: rival of gold (all) [('eos', 580), (66885, 7), (1089, 5), (4891, 2)]; when m<0 []
+  v1/stop s1: rival of gold (all) [('eos', 402), (63893, 101), (4891, 83), (1089, 9)]; when m<0 []
+==================================================================================================== 
+2. Pipeline validation: plan-start margin vs vLLM train first token (B2tr / B2ftr, per item)
+
+  s0 B2tr c=0: agree 534, disagree 9 (margins [-0.42, -0.38, -0.37, -0.29, -0.28, -0.27, -0.27, -0.27]), unresolved |m|<0.25: 52; predicted open 308/595, observed 326/595
+  s0 B2tr c=2: agree 550, disagree 6 (margins [-0.61, -0.43, -0.37, -0.34, -0.26, 0.27]), unresolved |m|<0.25: 39; predicted open 484/595, observed 499/595
+  s0 B2ftr c=2: agree 550, disagree 6 (margins [-0.61, -0.43, -0.37, -0.34, -0.26, 0.27]), unresolved |m|<0.25: 39; predicted open 484/595, observed 499/595
+  s0 B2tr c=4: agree 585, disagree 0 (margins []), unresolved |m|<0.25: 10; predicted open 563/595, observed 563/595
+  s0 B2ftr c=4: agree 585, disagree 0 (margins []), unresolved |m|<0.25: 10; predicted open 563/595, observed 563/595
+  s0 B2tr c=8: agree 594, disagree 0 (margins []), unresolved |m|<0.25: 1; predicted open 594/595, observed 594/595
+  s0 B2ftr c=8: agree 594, disagree 0 (margins []), unresolved |m|<0.25: 1; predicted open 594/595, observed 594/595
+  s1 B2tr c=0: agree 571, disagree 9 (margins [-1.03, -0.68, -0.68, -0.52, -0.5, -0.47, -0.3, -0.3]), unresolved |m|<0.25: 15; predicted open 52/595, observed 63/595
+  s1 B2tr c=2: agree 562, disagree 10 (margins [-0.8, -0.7, -0.68, -0.6, -0.56, -0.46, -0.34, -0.34]), unresolved |m|<0.25: 23; predicted open 118/595, observed 133/595
+  s1 B2ftr c=2: agree 562, disagree 10 (margins [-0.8, -0.7, -0.68, -0.6, -0.56, -0.46, -0.34, -0.34]), unresolved |m|<0.25: 23; predicted open 118/595, observed 133/595
+  s1 B2tr c=4: agree 560, disagree 11 (margins [-1.27, -0.62, -0.52, -0.49, -0.44, -0.42, -0.42, -0.41]), unresolved |m|<0.25: 24; predicted open 213/595, observed 233/595
+  s1 B2ftr c=4: agree 560, disagree 11 (margins [-1.27, -0.62, -0.52, -0.49, -0.44, -0.42, -0.42, -0.41]), unresolved |m|<0.25: 24; predicted open 213/595, observed 233/595
+  s1 B2tr c=8: agree 558, disagree 7 (margins [-0.83, -0.76, -0.64, -0.42, -0.29, 0.33, 0.51]), unresolved |m|<0.25: 30; predicted open 463/595, observed 471/595
+  s1 B2ftr c=8: agree 558, disagree 7 (margins [-0.83, -0.76, -0.64, -0.42, -0.29, 0.33, 0.51]), unresolved |m|<0.25: 30; predicted open 463/595, observed 471/595
+==================================================================================================== 
+3. Seed shift (same 595 train items; seed 1 minus seed 0, primary margin)
+
+  v11_plan/plan_start: n 595, mean diff -5.50, SD diff 2.19, median diff -5.45, Pearson r 0.81, Spearman 0.80
+  v11_plan/after_plan: n 595, mean diff -0.86, SD diff 0.54, median diff -0.83, Pearson r 0.73, Spearman 0.72
+  v4_format/continue: n 260, mean diff -0.99, SD diff 1.01, median diff -0.87, Pearson r 0.99, Spearman 0.98
+  v4_format/stop: n 595, mean diff +0.19, SD diff 0.70, median diff +0.17, Pearson r 0.95, Spearman 0.86
+  v1/continue: n 260, mean diff +0.26, SD diff 1.40, median diff +0.27, Pearson r 0.72, Spearman 0.69
+  v1/stop: n 595, mean diff -0.83, SD diff 0.98, median diff -0.72, Pearson r 0.57, Spearman 0.59
+  R = |mean diff plan_start| / max(|mean|, SD) over v1 continue/stop = 5.50 / 1.40 = 3.92
+  (with v4 stop as the yardstick instead: 5.50 / 0.70 = 7.90)
+  plan_start pairwise '<' - '{"' (not best-rival), seed diff:
+    mean -5.50, SD 2.19; per-logit: mean z('<') diff -3.30, mean z('{"') diff +2.20
+==================================================================================================== 
+4. Constant size implied by the margins vs what worked
+
+  s0 plan_start: c to open 50/80/90/95/99%: 0.00 / 1.91 / 2.93 / 4.05 / 6.12
+     c= 2: open  81.3%
+     c= 4: open  94.6%
+     c= 6: open  98.5%
+     c= 8: open  99.8%
+     c=10: open 100.0%
+     c=12: open 100.0%
+     c=16: open 100.0%
+  s0 after_plan: |b| to continue 50/80/90/95/99%: 0.67 / 1.18 / 1.51 / 1.76 / 2.19
+  s0 v4 continue: |b| to continue 50/80/90/95/99%: 0.00 / 0.94 / 1.92 / 3.15 / 6.50
+  s0 v4 stop: |b| at which 1/2/5/10/25% of stop points cross: 7.24 / 8.44 / 10.17 / 11.28 / 13.32
+     b=- 2: v4 continue cleared  90.4%, after_plan cleared  97.6%, v4 stop crossed   0.0%
+     b=- 4: v4 continue cleared  96.5%, after_plan cleared 100.0%, v4 stop crossed   0.2%
+     b=- 6: v4 continue cleared  98.5%, after_plan cleared 100.0%, v4 stop crossed   0.7%
+     b=- 8: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed   1.8%
+     b=-10: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed   4.4%
+     b=-12: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed  15.1%
+     b=-16: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed  83.0%
+  s1 plan_start: c to open 50/80/90/95/99%: 5.29 / 8.29 / 9.63 / 11.14 / 14.28
+     c= 2: open  19.8%
+     c= 4: open  35.8%
+     c= 6: open  57.6%
+     c= 8: open  77.8%
+     c=10: open  90.9%
+     c=12: open  96.5%
+     c=16: open  99.7%
+  s1 after_plan: |b| to continue 50/80/90/95/99%: 1.51 / 2.24 / 2.67 / 3.00 / 3.50
+  s1 v4 continue: |b| to continue 50/80/90/95/99%: 0.00 / 2.91 / 3.93 / 5.66 / 7.61
+  s1 v4 stop: |b| at which 1/2/5/10/25% of stop points cross: 7.22 / 9.15 / 10.64 / 11.79 / 13.96
+     b=- 2: v4 continue cleared  71.2%, after_plan cleared  71.6%, v4 stop crossed   0.0%
+     b=- 4: v4 continue cleared  90.4%, after_plan cleared  99.8%, v4 stop crossed   0.3%
+     b=- 6: v4 continue cleared  95.4%, after_plan cleared 100.0%, v4 stop crossed   0.5%
+     b=- 8: v4 continue cleared  98.8%, after_plan cleared 100.0%, v4 stop crossed   1.2%
+     b=-10: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed   3.7%
+     b=-12: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed  11.4%
+     b=-16: v4 continue cleared 100.0%, after_plan cleared 100.0%, v4 stop crossed  81.8%
+==================================================================================================== 
+5. Teacher-forced margins vs free-running train outcomes (per item)
+
+  s0 b=- 4: too few (152 multi): pred/obs 9/10, agree 151/152 = 99.3% (tp 9 fp 0 fn 1); too many (595): pred/obs 1/0, agree 99.8% (tp 0 fp 1 fn 0)
+  s0 b=- 8: too few (152 multi): pred/obs 0/0, agree 152/152 = 100.0% (tp 0 fp 0 fn 0); too many (595): pred/obs 11/9, agree 99.3% (tp 8 fp 3 fn 1)
+  s0 b=-12: too few (152 multi): pred/obs 0/0, agree 152/152 = 100.0% (tp 0 fp 0 fn 0); too many (595): pred/obs 90/76, agree 97.0% (tp 74 fp 16 fn 2)
+  s1 b=- 0: too few (152 multi): pred/obs 118/114, agree 146/152 = 96.1% (tp 113 fp 5 fn 1); too many (595): pred/obs 0/0, agree 100.0% (tp 0 fp 0 fn 0)
+  s1 b=- 2: too few (152 multi): pred/obs 75/71, agree 146/152 = 96.1% (tp 70 fp 5 fn 1); too many (595): pred/obs 0/0, agree 100.0% (tp 0 fp 0 fn 0)
+  s1 b=- 4: too few (152 multi): pred/obs 25/24, agree 151/152 = 99.3% (tp 24 fp 1 fn 0); too many (595): pred/obs 2/1, agree 99.5% (tp 0 fp 2 fn 1)
+  s1 b=- 6: too few (152 multi): pred/obs 12/12, agree 150/152 = 98.7% (tp 11 fp 1 fn 1); too many (595): pred/obs 3/2, agree 99.8% (tp 2 fp 1 fn 0)
+  s1 b=- 8: too few (152 multi): pred/obs 3/3, agree 152/152 = 100.0% (tp 3 fp 0 fn 0); too many (595): pred/obs 7/5, agree 99.7% (tp 5 fp 2 fn 0)
+  s1 b=-10: too few (152 multi): pred/obs 0/0, agree 152/152 = 100.0% (tp 0 fp 0 fn 0); too many (595): pred/obs 22/19, agree 99.2% (tp 18 fp 4 fn 1)
+  s1 b=-12: too few (152 multi): pred/obs 0/0, agree 152/152 = 100.0% (tp 0 fp 0 fn 0); too many (595): pred/obs 68/52, agree 96.6% (tp 50 fp 18 fn 2)
+
+  after_plan, teacher-forced on gold plans vs free-running 'plan then stop' (items that opened '<plan>'):
+   s0 c=0 b=-4: n 325 closed plans; pred stop 0, obs stop 0, agree 100.0% (tp 0 fp 0 fn 0)
+   s0 c=8 b=-4: n 592 closed plans; pred stop 0, obs stop 0, agree 100.0% (tp 0 fp 0 fn 0)
+   s0 c=8 b=-8: n 592 closed plans; pred stop 0, obs stop 0, agree 100.0% (tp 0 fp 0 fn 0)
+   s0 c=8 b=-12: n 592 closed plans; pred stop 0, obs stop 0, agree 100.0% (tp 0 fp 0 fn 0)
+   s1 c=0 b=-4: n 63 closed plans; pred stop 0, obs stop 6, agree 90.5% (tp 0 fp 0 fn 6)
+   s1 c=8 b=-4: n 381 closed plans; pred stop 1, obs stop 44, agree 88.2% (tp 0 fp 1 fn 44)
+   s1 c=8 b=-8: n 381 closed plans; pred stop 0, obs stop 2, agree 99.5% (tp 0 fp 0 fn 2)
+   s1 c=8 b=-12: n 382 closed plans; pred stop 0, obs stop 1, agree 99.7% (tp 0 fp 0 fn 1)
+==================================================================================================== 
+6. Margins under the stage-2/3 edits (output side only; A1/A2 in-sample, D1/D2 = their release, C2 random)
+
+  s0 v11_plan/plan_start: % correct side: none  51.8%, A1  51.8%, D1  51.8%, A2  99.8%, D2  99.8%, C2  57.3%
+  s0 v11_plan/after_plan: % correct side: none   7.4%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2   0.0%
+  s0 v4_format/continue: % correct side: none  66.9%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2  83.1%
+  s0 v4_format/stop: % correct side: none 100.0%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2 100.0%
+  s0 v1/continue: % correct side: none 100.0%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2 100.0%
+  s0 v1/stop: % correct side: none 100.0%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2 100.0%
+  s0 plan_start h.delta A2_27: mean +8.00, SD 0.03, min +7.87, max +8.08
+  s0 plan_start h.delta D2_27: mean +7.89, SD 0.05, min +7.58, max +8.01
+  s0 plan_start h.delta C2_27: mean +0.28, SD 0.08, min +0.06, max +0.55
+  s0 v4_format/continue h.delta A1_eos: mean -11.97, SD 0.27, min -12.40, max -9.57
+  s0 v4_format/stop h.delta A1_eos: mean -0.02, SD 0.17, min -1.61, max +0.38
+  s0 v11_plan/after_plan h.delta A1_eos: mean -3.29, SD 0.37, min -4.45, max -2.03
+  s0 v4_format/continue h.delta D1_eos: mean -11.94, SD 0.35, min -12.61, max -8.80
+  s0 v4_format/stop h.delta D1_eos: mean -0.22, SD 0.23, min -1.87, max +0.37
+  s0 v11_plan/after_plan h.delta D1_eos: mean -3.18, SD 0.36, min -4.37, max -1.87
+  s0 v4_format/continue h.delta A2_eos: mean -11.96, SD 0.37, min -12.48, max -8.58
+  s0 v4_format/stop h.delta A2_eos: mean -0.02, SD 0.22, min -2.37, max +0.43
+  s0 v11_plan/after_plan h.delta A2_eos: mean -11.99, SD 0.10, min -12.26, max -11.68
+  s0 v4_format/continue h.delta D2_eos: mean -11.96, SD 0.42, min -12.63, max -8.06
+  s0 v4_format/stop h.delta D2_eos: mean -0.23, SD 0.25, min -2.55, max +0.43
+  s0 v11_plan/after_plan h.delta D2_eos: mean -12.01, SD 0.13, min -12.41, max -11.58
+  s0 near-tie test at plan_start under D2: items moved to '<' (m<0 -> m'>0): margins before (quantiles) 
+     moved n=286 median m -1.51 min -7.44; not moved n=1 median m -8.06 max -8.06
+  s1 v11_plan/plan_start: % correct side: none   8.7%, A1   8.7%, D1   8.7%, A2  78.0%, D2  70.9%, C2   9.9%
+  s1 v11_plan/after_plan: % correct side: none   2.0%, A1  52.3%, D1  95.5%, A2 100.0%, D2 100.0%, C2   0.0%
+  s1 v4_format/continue: % correct side: none  54.6%, A1 100.0%, D1  99.6%, A2  99.6%, D2  99.2%, C2  58.1%
+  s1 v4_format/stop: % correct side: none 100.0%, A1 100.0%, D1  99.8%, A2  99.8%, D2  99.7%, C2 100.0%
+  s1 v1/continue: % correct side: none 100.0%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2 100.0%
+  s1 v1/stop: % correct side: none 100.0%, A1 100.0%, D1 100.0%, A2 100.0%, D2 100.0%, C2 100.0%
+  s1 plan_start h.delta A2_27: mean +8.00, SD 0.03, min +7.89, max +8.09
+  s1 plan_start h.delta D2_27: mean +7.38, SD 0.13, min +6.87, max +7.69
+  s1 plan_start h.delta C2_27: mean +0.22, SD 0.11, min -0.02, max +0.59
+  s1 v4_format/continue h.delta A1_eos: mean -11.96, SD 0.39, min -12.41, max -6.93
+  s1 v4_format/stop h.delta A1_eos: mean -0.01, SD 0.20, min -2.03, max +0.47
+  s1 v11_plan/after_plan h.delta A1_eos: mean -1.54, SD 0.64, min -3.61, max +0.67
+  s1 v4_format/continue h.delta D1_eos: mean -11.53, SD 0.63, min -12.89, max -4.69
+  s1 v4_format/stop h.delta D1_eos: mean -0.54, SD 0.44, min -4.12, max +0.83
+  s1 v11_plan/after_plan h.delta D1_eos: mean -3.18, SD 0.49, min -4.63, max -1.61
+  s1 v4_format/continue h.delta A2_eos: mean -11.94, SD 0.51, min -12.44, max -5.43
+  s1 v4_format/stop h.delta A2_eos: mean -0.02, SD 0.25, min -2.88, max +0.48
+  s1 v11_plan/after_plan h.delta A2_eos: mean -12.00, SD 0.11, min -12.34, max -11.67
+  s1 v4_format/continue h.delta D2_eos: mean -11.59, SD 0.63, min -12.92, max -4.36
+  s1 v4_format/stop h.delta D2_eos: mean -0.75, SD 0.42, min -4.74, max +0.59
+  s1 v11_plan/after_plan h.delta D2_eos: mean -11.95, SD 0.31, min -12.80, max -10.60
+  s1 near-tie test at plan_start under D2: items moved to '<' (m<0 -> m'>0): margins before (quantiles) 
+     moved n=370 median m -4.36 min -7.37; not moved n=173 median m -8.94 max -7.34
+==================================================================================================== 
+7. prevent_01 learned output rows (arm b, 6 rows) applied to (a)/(a1) states (proxy for 'out' vs 'none')
+
+  s0 v11_plan/plan_start: mean dm -3.16 (SD 0.16); % correct side 51.8 -> 14.8; flips +->- 220, -->+ 0
+  s0 v11_plan/after_plan: mean dm -0.54 (SD 0.03); % correct side 7.4 -> 0.3; flips +->- 42, -->+ 0
+  s0 v4_format/continue: mean dm -1.10 (SD 0.10); % correct side 66.9 -> 49.6; flips +->- 45, -->+ 0
+  s0 v4_format/stop: mean dm +0.94 (SD 0.29); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s0 v1/continue: mean dm -0.00 (SD 0.05); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s0 v1/stop: mean dm -0.90 (SD 0.11); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s0 plan_start per-row h.delta means: P_248046 +0.36, P_198 -0.41, P_27 -1.95, P_4754 +1.21, P_13766 +0.05, P_10083 -1.16; pairwise '<'-'{"' shift -3.16
+  s0 v4 continue per-row h.delta means: P_248046 +0.58, P_198 -0.52, P_27 -1.41, P_4754 +0.28, P_13766 -0.12, P_10083 -0.82
+  s1 v11_plan/plan_start: mean dm -3.67 (SD 0.18); % correct side 8.7 -> 1.0; flips +->- 46, -->+ 0
+  s1 v11_plan/after_plan: mean dm -0.79 (SD 0.12); % correct side 2.0 -> 0.0; flips +->- 12, -->+ 0
+  s1 v4_format/continue: mean dm -1.13 (SD 0.11); % correct side 54.6 -> 47.3; flips +->- 19, -->+ 0
+  s1 v4_format/stop: mean dm +1.13 (SD 0.24); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s1 v1/continue: mean dm -0.00 (SD 0.06); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s1 v1/stop: mean dm -0.77 (SD 0.42); % correct side 100.0 -> 100.0; flips +->- 0, -->+ 0
+  s1 plan_start per-row h.delta means: P_248046 +0.56, P_198 -0.31, P_27 -2.40, P_4754 +1.27, P_13766 +0.17, P_10083 -1.25; pairwise '<'-'{"' shift -3.67
+  s1 v4 continue per-row h.delta means: P_248046 +0.71, P_198 -0.42, P_27 -1.21, P_4754 +0.25, P_13766 -0.02, P_10083 -0.83
+
+  prevent_01 test outcomes for comparison (204 test items; v11 replies opening '<plan>'; v4 too-few on multi-call):
+   prev_b_rows1x_split_none: v11 open 122/204, v11 plan-then-stop 72, v4 multi too-few 35/48
+   prev_b_rows1x_split_out: v11 open 36/204, v11 plan-then-stop 30, v4 multi too-few 44/48
+   prev_b_rows1x: v11 open 59/204, v11 plan-then-stop 45, v4 multi too-few 45/48
+   prev_b_rows1x_s1_split_none: v11 open 23/204, v11 plan-then-stop 18, v4 multi too-few 26/48
+   prev_b_rows1x_s1_split_out: v11 open 4/204, v11 plan-then-stop 4, v4 multi too-few 37/48
+   prev_b_rows1x_s1: v11 open 5/204, v11 plan-then-stop 5, v4 multi too-few 39/48
+==================================================================================================== 
+8. Decomposing 24.0 vs 0.5 (test, unpatched) into the two plan decisions
+
+  s0 test U: open 125/204, of which plan-then-stop 72, ok 49
+     train margins: P(plan_start m>0) 0.518; P(after_plan m_eot>0) 0.074; P(both) 0.049
+  s1 test U: open 26/204, of which plan-then-stop 25, ok 1
+     train margins: P(plan_start m>0) 0.087; P(after_plan m_eot>0) 0.020; P(both) 0.010
+==================================================================================================== 
+9. v4 continue by position; post-hoc after-plan leak of the one-row XML patch (test, aggregate)
+
+  s0 v4 continue k=0: n 152, median -0.29, min -7.16, max +3.62, %<0 56, %>4 0
+  s0 v4 continue k>=1: n 108, median +8.59, min -0.87, max +13.91, %<0 1, %>4 93
+  s1 v4 continue k=0: n 152, median -1.86, min -9.74, max +3.20, %<0 77, %>4 0
+  s1 v4 continue k>=1: n 108, median +8.22, min -5.63, max +12.74, %<0 1, %>4 93
+  s0 U: test opened 125, plan-then-stop 72
+  s0 A1: test opened 134, plan-then-stop 0
+  s0 D1: test opened 144, plan-then-stop 0
+  s1 U: test opened 26, plan-then-stop 25
+  s1 A1: test opened 48, plan-then-stop 31
+  s1 D1: test opened 33, plan-then-stop 7

@@ -1,0 +1,20 @@
+{"job": "train prev_b_rows1x", "seconds": 542, "usd_est": 0.628}
+{"job": "generate prev_b_rows1x x612 eager=False", "seconds": 148, "usd_est": 0.172}
+{"job": "build_split prev_b_rows1x out", "seconds": 71, "usd_est": 0.008}
+{"job": "build_split prev_b_rows1x none", "seconds": 34, "usd_est": 0.004}
+{"job": "build_split prev_b_rows1x in", "seconds": 79, "usd_est": 0.009}
+{"job": "generate prev_b_rows1x_split_out x612 eager=False", "seconds": 123, "usd_est": 0.142}
+{"job": "generate prev_b_rows1x_split_none x612 eager=False", "seconds": 148, "usd_est": 0.172}
+{"job": "generate prev_b_rows1x_split_in x612 eager=False", "seconds": 127, "usd_est": 0.147}
+{"job": "train prev_c_rows10x", "seconds": 459, "usd_est": 0.532}
+{"job": "train prev_d_rand1x", "seconds": 491, "usd_est": 0.569}
+{"job": "generate prev_c_rows10x x612 eager=False", "seconds": 153, "usd_est": 0.177}
+{"job": "generate prev_d_rand1x x612 eager=False", "seconds": 117, "usd_est": 0.136}
+{"job": "train prev_a_s1", "seconds": 450, "usd_est": 0.522}
+{"job": "train prev_b_rows1x_s1", "seconds": 517, "usd_est": 0.599}
+{"job": "generate prev_a_s1 x612 eager=False", "seconds": 116, "usd_est": 0.135}
+{"job": "generate prev_b_rows1x_s1 x612 eager=False", "seconds": 119, "usd_est": 0.138}
+{"job": "build_split prev_b_rows1x_s1 none", "seconds": 53, "usd_est": 0.006}
+{"job": "build_split prev_b_rows1x_s1 out", "seconds": 48, "usd_est": 0.006}
+{"job": "generate prev_b_rows1x_s1_split_none x612 eager=False", "seconds": 124, "usd_est": 0.143}
+{"job": "generate prev_b_rows1x_s1_split_out x612 eager=False", "seconds": 167, "usd_est": 0.194}

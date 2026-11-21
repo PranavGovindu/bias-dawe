@@ -1,0 +1,20 @@
+{"job": "train sft_v1_s0", "seconds": 531, "usd_est": 0.615}
+{"job": "generate sft_v1_s0 x612 eager=False", "seconds": 124, "usd_est": 0.143}
+{"job": "generate base x612 eager=False", "seconds": 137, "usd_est": 0.158}
+{"job": "map sft_v1_s0 v1 vs v4_format", "seconds": 170, "usd_est": 0.197}
+{"job": "plan_map sft_v1_s0 v11_plan", "seconds": 98, "usd_est": 0.114}
+{"job": "gen_arms stage2 B,A,C,D,E,F25,F50,F75", "seconds": 970, "usd_est": 1.158}
+{"job": "gen_arms try1 (failed fast at dtype pre-check, no engine; estimate)", "seconds": 60, "usd_est": 0.072}
+{"job": "merge prev_a_s1 -> dawe_s1", "seconds": 46, "usd_est": 0.053}
+{"job": "map dawe_s1 v1 vs v4_format", "seconds": 126, "usd_est": 0.146}
+{"job": "gen_arms stage2_s1 B,A,D", "seconds": 467, "usd_est": 0.557}
+{"job": "merge prev_a_s1 -> dawe_s1", "seconds": 45, "usd_est": 0.052}
+{"job": "plan_map dawe_s1 v11_plan", "seconds": 95, "usd_est": 0.11}
+{"job": "gen_arms stage3_s0 S3", "seconds": 761, "usd_est": 0.909}
+{"job": "gen_arms stage3_s1 S3", "seconds": 769, "usd_est": 0.918}
+{"job": "merge prev_a_s1 -> dawe_s1", "seconds": 42, "usd_est": 0.049}
+{"job": "train sft_v1_s0r", "seconds": 448, "usd_est": 0.519}
+{"job": "train sft_v1_s2", "seconds": 427, "usd_est": 0.495}
+{"job": "generate sft_v1_s0r x612 eager=False", "seconds": 107, "usd_est": 0.125}
+{"job": "generate sft_v1_s2 x612 eager=False", "seconds": 125, "usd_est": 0.144}
+{"job": "gen_arms step2_s1 S2B", "seconds": 148, "usd_est": 0.177}

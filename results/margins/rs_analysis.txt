@@ -1,0 +1,145 @@
+==================================================================================================== 
+T0. Merge validation: PC plan-start margins (train) vs H100 map margins (step 1), same items
+
+  s0: mean dm -0.014, mean |dm| 0.234, %|dm|<=0.3 68.4, max |dm| 1.09, r 0.9942
+  s1: mean dm -0.054, mean |dm| 0.320, %|dm|<=0.3 53.8, max |dm| 1.29, r 0.9945
+==================================================================================================== 
+T1/T2. v1 (JSON) reply start: target '{"' vs best rival, and the '<' deficit (best non-'<' minus '<')
+
+  s0 train: top token [('\'{"\'', 595)]
+     '{"' - best rival: n 595, median +13.86, q05 +11.83, q95 +14.42, min +6.63, %<0 0.0, %|m|<4 0.0; rival [('\' {"\'', 459), ("'{'", 133), (760, 1)]
+     '<' deficit: n 595, median +26.71, q05 +22.87, q95 +29.18, min +16.96, %<0 0.0, %|m|<4 0.0
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:0 8..12:0 12..16:0 >16:595
+     K2: %% items with '<' deficit < c95 (4.05): 0.0%; < 8: 0.0%; < 12: 0.0%
+     under A2 (output side): h.delta('<') mean +6.34 (SD 0.11); deficit median +20.35, min +11.26, %<0 0.0
+     under D2 (output side): h.delta('<') mean +5.98 (SD 0.11); deficit median +20.73, min +11.63, %<0 0.0
+  s0 test: top token [('\'{"\'', 204)]
+     '{"' - best rival: n 204, median +13.91, q05 +11.76, q95 +14.45, min +10.34, %<0 0.0, %|m|<4 0.0; rival [('\' {"\'', 159), ("'{'", 41), (1206, 2)]
+     '<' deficit: n 204, median +26.82, q05 +22.81, q95 +29.23, min +20.42, %<0 0.0, %|m|<4 0.0
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:0 8..12:0 12..16:0 >16:204
+     K2: %% items with '<' deficit < c95 (4.05): 0.0%; < 8: 0.0%; < 12: 0.0%
+     under A2 (output side): h.delta('<') mean +6.33 (SD 0.11); deficit median +20.49, min +14.04, %<0 0.0
+     under D2 (output side): h.delta('<') mean +5.97 (SD 0.11); deficit median +20.86, min +14.38, %<0 0.0
+  s1 train: top token [('\'{"\'', 595)]
+     '{"' - best rival: n 595, median +14.36, q05 +13.71, q95 +14.94, min +9.21, %<0 0.0, %|m|<4 0.0; rival [('\' {"\'', 563), ("'{'", 19), (62070, 8)]
+     '<' deficit: n 595, median +26.33, q05 +23.58, q95 +28.26, min +18.87, %<0 0.0, %|m|<4 0.0
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:0 8..12:0 12..16:0 >16:595
+     K2: %% items with '<' deficit < c95 (11.14): 0.0%; < 8: 0.0%; < 12: 0.0%
+     under A2 (output side): h.delta('<') mean +6.85 (SD 0.11); deficit median +19.50, min +12.65, %<0 0.0
+     under D2 (output side): h.delta('<') mean +5.65 (SD 0.12); deficit median +20.68, min +13.73, %<0 0.0
+  s1 test: top token [('\'{"\'', 204)]
+     '{"' - best rival: n 204, median +14.28, q05 +13.76, q95 +14.98, min +13.13, %<0 0.0, %|m|<4 0.0; rival [('\' {"\'', 198), (62070, 3), (13215, 2)]
+     '<' deficit: n 204, median +26.42, q05 +23.91, q95 +28.28, min +21.33, %<0 0.0, %|m|<4 0.0
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:0 8..12:0 12..16:0 >16:204
+     K2: %% items with '<' deficit < c95 (11.14): 0.0%; < 8: 0.0%; < 12: 0.0%
+     under A2 (output side): h.delta('<') mean +6.84 (SD 0.11); deficit median +19.55, min +14.50, %<0 0.0
+     under D2 (output side): h.delta('<') mean +5.63 (SD 0.11); deficit median +20.77, min +15.68, %<0 0.0
+
+  v1 test: deficit vs observed (no v1 test reply opens '<' at c = 8 in stage 3):
+   s0: items with deficit < 8 (predicted to open '<' at +8): 0; observed opening '<' under B2fte_c8_b-4: 0
+   s1: items with deficit < 8 (predicted to open '<' at +8): 0; observed opening '<' under B2fte_c8_b-8: 0
+==================================================================================================== 
+T3. v11 plan start on TEST items ('<' - best rival)
+
+  s0 test: n 204, median +0.35, q05 -4.42, q95 +4.78, min -8.15, %<0 43.6, %|m|<4 82.8
+       hist: <-12:0 -12..-8:1 -8..-4:12 -4..-2:27 -2..0:49 0..2:56 2..4:37 4..8:21 8..12:1 12..16:0 >16:0
+  s0 train (PC): n 595, median +0.07, q05 -4.18, q95 +4.79, min -7.69, %<0 48.4, %|m|<4 85.7
+     vs Uchk (c=0): predicted open 115, observed 125, sign agree 178/183 (unresolved 21)
+     vs B2fte_c2_b-4 (c=2): predicted open 164, observed 168, sign agree 187/191 (unresolved 13)
+     vs B2fte_c4_b-4 (c=4): predicted open 191, observed 191, sign agree 201/201 (unresolved 3)
+     vs B2fte_c8_b-4 (c=8): predicted open 203, observed 203, sign agree 203/203 (unresolved 1)
+     A2 output-side prediction on test: predicted open 203, observed 204; observed-open but predicted-closed 1, predicted-open but closed 0
+     D2 output-side prediction on test: predicted open 203, observed 204; observed-open but predicted-closed 1, predicted-open but closed 0
+  s1 test: n 204, median -5.05, q05 -12.40, q95 +2.07, min -15.72, %<0 89.7, %|m|<4 36.3
+       hist: <-12:12 -12..-8:28 -8..-4:89 -4..-2:26 -2..0:28 0..2:10 2..4:10 4..8:1 8..12:0 12..16:0 >16:0
+  s1 train (PC): n 595, median -5.38, q05 -11.25, q95 +0.83, min -16.76, %<0 90.6, %|m|<4 35.1
+     vs Uchk (c=0): predicted open 21, observed 26, sign agree 194/196 (unresolved 8)
+     vs B2fte_c2_b-4 (c=2): predicted open 49, observed 49, sign agree 198/198 (unresolved 6)
+     vs B2fte_c4_b-4 (c=4): predicted open 75, observed 84, sign agree 187/194 (unresolved 10)
+     vs B2fte_c8_b-8 (c=8): predicted open 164, observed 166, sign agree 195/197 (unresolved 7)
+     A2 output-side prediction on test: predicted open 164, observed 178; observed-open but predicted-closed 14, predicted-open but closed 0
+     D2 output-side prediction on test: predicted open 156, observed 167; observed-open but predicted-closed 12, predicted-open but closed 1
+
+  Same test item, JSON vs plan-first reply start (contrast):
+   s0: '<' deficit median JSON +26.82 vs plan-first -0.35; per-item gap (JSON - v11) median +27.41, min +15.42; min JSON deficit +20.42 vs v11 q95 +4.42; Spearman 0.08
+   s1: '<' deficit median JSON +26.42 vs plan-first +5.05; per-item gap (JSON - v11) median +21.23, min +11.00; min JSON deficit +21.33 vs v11 q95 +12.40; Spearman 0.12
+==================================================================================================== 
+T4. Token after '<plan>' (best non-JSON-opener minus best JSON opener; >0 = writes plan text)
+
+  s0 train: n 595, median +9.07, q05 +6.42, q95 +12.77, min +4.75, %<0 0.0, %|m|<4 0.0; top token [("'\\n'", 201), ("'Call'", 199), (9947, 111), (46270, 57)]
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:154 8..12:372 12..16:69 >16:0
+  s0 test: n 204, median +9.12, q05 +6.35, q95 +13.16, min +5.36, %<0 0.0, %|m|<4 0.0; top token [("'Call'", 73), ("'\\n'", 63), (9947, 32), (46270, 22)]
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:0 4..8:55 8..12:127 12..16:22 >16:0
+  s1 train: n 595, median +7.35, q05 +4.23, q95 +10.76, min +2.16, %<0 0.0, %|m|<4 2.7; top token [(9947, 193), ("'\\n'", 167), ("'Call'", 116), (46270, 73)]
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:16 4..8:361 8..12:213 12..16:5 >16:0
+  s1 test: n 204, median +7.38, q05 +4.44, q95 +10.86, min +2.83, %<0 0.0, %|m|<4 2.9; top token [(9947, 62), ("'\\n'", 55), ("'Call'", 44), (46270, 25)]
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:0 0..2:0 2..4:6 4..8:117 8..12:80 12..16:1 >16:0
+  seed 1 - seed 0 per test item: mean -1.85, SD 1.08, r 0.85
+  s0: correlation plan-start margin vs post-<plan> margin (test, same item): r 0.58
+  s1: correlation plan-start margin vs post-<plan> margin (test, same item): r 0.51
+
+  Per-item match on test: among replies that begin '<plan>', does the next token go to JSON?
+   s0 Uchk: n 125 opened '<plan>'; observed JSON next 0, predicted 0; agree 125/125 (fp 0, fn 0, |m|<0.25: 0)
+   s0 B2fte_c8_b-4: n 203 opened '<plan>'; observed JSON next 0, predicted 0; agree 203/203 (fp 0, fn 0, |m|<0.25: 0)
+   s0 B2te_c8_b-4: n 203 opened '<plan>'; observed JSON next 1, predicted 0; agree 202/203 (fp 0, fn 1, |m|<0.25: 0)
+   s0 A2: n 204 opened '<plan>'; observed JSON next 2, predicted 0; agree 202/204 (fp 0, fn 2, |m|<0.25: 0)
+   s0 D2: n 204 opened '<plan>'; observed JSON next 0, predicted 0; agree 204/204 (fp 0, fn 0, |m|<0.25: 0)
+   s1 Uchk: n 26 opened '<plan>'; observed JSON next 0, predicted 0; agree 26/26 (fp 0, fn 0, |m|<0.25: 0)
+   s1 B2fte_c8_b-8: n 166 opened '<plan>'; observed JSON next 32, predicted 0; agree 134/166 (fp 0, fn 32, |m|<0.25: 0)
+   s1 B2te_c8_b-8: n 166 opened '<plan>'; observed JSON next 32, predicted 0; agree 134/166 (fp 0, fn 32, |m|<0.25: 0)
+   s1 A2: n 178 opened '<plan>'; observed JSON next 48, predicted 0; agree 130/178 (fp 0, fn 48, |m|<0.25: 0)
+   s1 D2: n 167 opened '<plan>'; observed JSON next 42, predicted 0; agree 125/167 (fp 0, fn 42, |m|<0.25: 0)
+
+  Seed-1 residual failures under A2 / B2-first, by post-<plan> margin (test):
+   s0 A2: unclosed-plan items n 2, their m_post median +6.16; correct items n 181, m_post median +9.15
+   s0 B2fte_c8_b-4: unclosed-plan items n 0, their m_post median +nan; correct items n 180, m_post median +9.17
+   s1 A2: unclosed-plan items n 48, their m_post median +5.78; correct items n 117, m_post median +8.18
+   s1 B2fte_c8_b-8: unclosed-plan items n 31, their m_post median +5.56; correct items n 119, m_post median +8.07
+==================================================================================================== 
+T4b. Position after '<' 'plan': z('>') minus max(z('>{"'), z('>{')) (post hoc, Amendment 3)
+
+  s0: re-run vs first 3060 run, plan-start test margins: max |diff| 0.0000
+  s0 train: n 595, median +2.74, q05 +0.67, q95 +5.72, min -0.17, %<0 0.5, %|m|<4 74.1; top token [("'>'", 588), ('\'>{"\'', 3), (73026, 3), (63607, 1)]
+       m_gt2 (best non-JSON vs JSON): n 595, median +2.74, q05 +0.67, q95 +5.72, min -0.17, %<0 0.5, %|m|<4 74.1
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:3 0..2:183 2..4:255 4..8:154 8..12:0 12..16:0 >16:0
+  s0 test: n 204, median +2.82, q05 +0.76, q95 +5.85, min -0.03, %<0 0.5, %|m|<4 76.5; top token [("'>'", 202), ('\'>{"\'', 1), (63607, 1)]
+       m_gt2 (best non-JSON vs JSON): n 204, median +2.82, q05 +0.76, q95 +5.85, min -0.03, %<0 0.5, %|m|<4 76.5
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:0 -2..0:1 0..2:64 2..4:91 4..8:48 8..12:0 12..16:0 >16:0
+  s1: re-run vs first 3060 run, plan-start test margins: max |diff| 0.0000
+  s1 train: n 595, median +0.89, q05 -1.25, q95 +3.22, min -2.78, %<0 25.2, %|m|<4 98.5; top token [("'>'", 436), ('\'>{"\'', 150), (63607, 7), (73026, 2)]
+       m_gt2 (best non-JSON vs JSON): n 595, median +0.89, q05 -1.25, q95 +3.24, min -2.78, %<0 25.2, %|m|<4 98.5
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:4 -2..0:146 0..2:323 2..4:113 4..8:9 8..12:0 12..16:0 >16:0
+  s1 test: n 204, median +0.80, q05 -1.15, q95 +3.17, min -2.24, %<0 27.0, %|m|<4 99.0; top token [("'>'", 148), ('\'>{"\'', 55), (63607, 1)]
+       m_gt2 (best non-JSON vs JSON): n 204, median +0.80, q05 -1.15, q95 +3.17, min -2.24, %<0 27.0, %|m|<4 99.0
+       hist: <-12:0 -12..-8:0 -8..-4:0 -4..-2:2 -2..0:53 0..2:106 2..4:41 4..8:2 8..12:0 12..16:0 >16:0
+  seed 1 - seed 0 per test item: mean -2.00, SD 0.85, r 0.84
+  s0: r(plan-start margin, after-'plan' margin) on test items 0.60
+  s1: r(plan-start margin, after-'plan' margin) on test items 0.54
+
+  Per-item match on test: among replies beginning '<plan', is '>{' emitted (text starts '<plan>{')?
+   s0 Uchk: n 125 begin '<plan'; observed '>{' 0, predicted 0; tp 0, fp 0, fn 0; |m|<0.25 1; median m of observed-JSON items +nan
+   s0 B2fte_c8_b-4: n 203 begin '<plan'; observed '>{' 0, predicted 1; tp 0, fp 1, fn 0; |m|<0.25 4; median m of observed-JSON items +nan
+   s0 B2te_c8_b-4: n 203 begin '<plan'; observed '>{' 1, predicted 1; tp 1, fp 0, fn 0; |m|<0.25 4; median m of observed-JSON items -0.03
+   s0 A2: n 204 begin '<plan'; observed '>{' 2, predicted 1; tp 0, fp 1, fn 2; |m|<0.25 4; median m of observed-JSON items +0.04
+   s0 D2: n 204 begin '<plan'; observed '>{' 0, predicted 1; tp 0, fp 1, fn 0; |m|<0.25 4; median m of observed-JSON items +nan
+   s0 C2: n 146 begin '<plan'; observed '>{' 0, predicted 0; tp 0, fp 0, fn 0; |m|<0.25 1; median m of observed-JSON items +nan
+   s1 Uchk: n 26 begin '<plan'; observed '>{' 0, predicted 0; tp 0, fp 0, fn 0; |m|<0.25 1; median m of observed-JSON items +nan
+   s1 B2fte_c8_b-8: n 166 begin '<plan'; observed '>{' 32, predicted 38; tp 31, fp 7, fn 1; |m|<0.25 20; median m of observed-JSON items -0.72
+   s1 B2te_c8_b-8: n 166 begin '<plan'; observed '>{' 32, predicted 38; tp 31, fp 7, fn 1; |m|<0.25 20; median m of observed-JSON items -0.72
+   s1 A2: n 178 begin '<plan'; observed '>{' 48, predicted 45; tp 42, fp 3, fn 6; |m|<0.25 22; median m of observed-JSON items -0.65
+   s1 D2: n 167 begin '<plan'; observed '>{' 42, predicted 37; tp 35, fp 2, fn 7; |m|<0.25 21; median m of observed-JSON items -0.55
+   s1 C2: n 26 begin '<plan'; observed '>{' 1, predicted 0; tp 0, fp 0, fn 1; |m|<0.25 1; median m of observed-JSON items +0.06
+==================================================================================================== 
+T5. Like-for-like seed control at JSON reply start; eos-only patches at plan start (input-side check)
+
+  JSON reply start train '<' deficit: s1-s0 mean -0.22, SD 1.35, r 0.72
+  JSON reply start train '{"' margin: s1-s0 mean +0.74, SD 0.84, r 0.34
+  JSON reply start test '<' deficit: s1-s0 mean -0.32, SD 1.31, r 0.72
+  JSON reply start test '{"' margin: s1-s0 mean +0.65, SD 0.89, r 0.04
+  plan start test: s1-s0 mean -5.37, SD 2.26
+  s0 A1: opens beyond U 14, unpatched margins median -0.26 [-1.18, +0.46]; U-opened lost 5
+  s0 D1: opens beyond U 19, unpatched margins median -0.43 [-1.18, +0.46]; U-opened lost 0
+  s0 A2: opens beyond U 79, unpatched margins median -2.03 [-8.15, +0.46]; U-opened lost 0
+  s1 A1: opens beyond U 22, unpatched margins median -1.43 [-4.49, -0.05]; U-opened lost 0
+  s1 D1: opens beyond U 8, unpatched margins median -1.35 [-2.52, -0.11]; U-opened lost 1
+  s1 A2: opens beyond U 152, unpatched margins median -5.05 [-10.41, -0.05]; U-opened lost 0

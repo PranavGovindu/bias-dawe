@@ -1,0 +1,23 @@
+{
+ "a": "v1",
+ "b": "v4_format",
+ "run": "dawe_s1",
+ "n_pairs": 595,
+ "v1": {
+  "n_continue": 260,
+  "n_stop": 595,
+  "nll_continue": 0.002748905606884259,
+  "nll_stop": 2.5488896190614744e-05
+ },
+ "v4_format": {
+  "n_continue": 260,
+  "n_stop": 595,
+  "nll_continue": 1.4193811431840984,
+  "nll_stop": 0.00017447996009697814
+ },
+ "cost": {
+  "job": "map dawe_s1 v1 vs v4_format",
+  "seconds": 126,
+  "usd_est": 0.146
+ }
+}

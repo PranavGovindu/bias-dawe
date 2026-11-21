@@ -1,0 +1,16 @@
+{
+ "h": "v11_plan",
+ "n_by_kind": {
+  "plan_start": 595,
+  "after_plan": 595
+ },
+ "nll_by_kind": {
+  "plan_start": 1.142925408917501,
+  "after_plan": 2.279106419427054
+ },
+ "cost": {
+  "job": "plan_map sft_v1_s0 v11_plan",
+  "seconds": 98,
+  "usd_est": 0.114
+ }
+}

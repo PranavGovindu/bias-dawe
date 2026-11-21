@@ -1,0 +1,23 @@
+{
+ "a": "v1",
+ "b": "v4_format",
+ "run": "sft_v1_s0",
+ "n_pairs": 595,
+ "v1": {
+  "n_continue": 260,
+  "n_stop": 595,
+  "nll_continue": 0.0006750182999807154,
+  "nll_stop": 9.654581833442421e-06
+ },
+ "v4_format": {
+  "n_continue": 260,
+  "n_stop": 595,
+  "nll_continue": 0.770051920253638,
+  "nll_stop": 8.509993040810869e-05
+ },
+ "cost": {
+  "job": "map sft_v1_s0 v1 vs v4_format",
+  "seconds": 170,
+  "usd_est": 0.197
+ }
+}

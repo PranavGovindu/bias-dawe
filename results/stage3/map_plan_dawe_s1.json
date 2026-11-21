@@ -1,0 +1,16 @@
+{
+ "h": "v11_plan",
+ "n_by_kind": {
+  "plan_start": 595,
+  "after_plan": 595
+ },
+ "nll_by_kind": {
+  "plan_start": 5.422314674612682,
+  "after_plan": 3.181421702048358
+ },
+ "cost": {
+  "job": "plan_map dawe_s1 v11_plan",
+  "seconds": 95,
+  "usd_est": 0.11
+ }
+}
